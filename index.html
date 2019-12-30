@@ -13,20 +13,20 @@
 </head>
 <body>
 
-<script src="https://cdn.jsdelivr.net/npm/authing-js-sdk@2.3.0/dist/authing-js-sdk-browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/authing-js-sdk/dist/authing-js-sdk-browser.min.js"></script>
 <script>
     // 初始化 Authing SDK for Web
-    const auth = new Authing({
-        clientId: '5a9fa26cf8635a000185528c',
-        timestamp: Math.round(new Date() / 1000),
-        nonce: Math.ceil(Math.random() * Math.pow(10, 6))
+    const authing = new Authing({
+        userPoolId: '5a9fa26cf8635a000185528c'
     });
 
-    auth.then(function(authing) {
         // 调用小程序扫码登录的方法，此方法将生成一个用于扫码登录的图片和相关提示信息
         authing.startWXAppScaning({
             // 不自动跳转
             redirect: false,
+            
+            // 启用获取手机号
+            enableFetchPhone: true,
   
             // 扫码成功
             onSuccess(userInfo) {
@@ -38,7 +38,6 @@
                 localStorage.setItem('token', userInfo.token);
             }
         });
-    })
 </script>
 
 </body>
